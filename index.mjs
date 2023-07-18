@@ -10,7 +10,7 @@ DbConfig()
 
 app.use(cors())
 app.use(express.json({}))
-app.use('/',AuthRoutes)
+app.use('/api/auth/',AuthRoutes)
 const PORT = process.env.PORT
 app.listen(PORT , ()=>{
     console.log(`server running at ${PORT} `);

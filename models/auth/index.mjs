@@ -1,12 +1,19 @@
 import mongoose, { Schema } from "mongoose"
 import * as yup from 'yup'
 
-export const SignUpSchema = yup.object({
+export const RegisterSchema = yup.object({
     body: yup.object({
         email:yup.string().required(),
         password:yup.string().required(),
         firstname:yup.string().required(),
         lastname:yup.string().required()
+    })
+})
+
+export const LoginSchema = yup.object({
+    body: yup.object({
+        email:yup.string().required(),
+        password:yup.string().required(),
     })
 })
 
