@@ -7,6 +7,8 @@ import fileUpload from "express-fileupload";
 
 import cors from "cors";
 import appRootPath from "app-root-path";
+import { UserRoutes } from "./routes/user/index.mjs";
+import { BlogRoutes } from "./routes/blog/index.mjs";
 const app = express();
 
 EnvConfig();
@@ -26,6 +28,8 @@ app.use(
 );
 app.use("/api/auth/", AuthRoutes);
 app.use("/api/products/", ProductRoutes);
+app.use("/api/blogs/", BlogRoutes);
+app.use('/api/user/',UserRoutes)
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
