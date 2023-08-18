@@ -29,7 +29,15 @@ export const AddProductController = async (req, res) => {
 
 export const GetProductsControler = async (req, res) => {
   try {
-    const products = await Product.find();
+    const { pageNumber = 1, pageSize = 6 , searchWord=""} = req.query;
+    const products = await Product.find({
+      name: {
+        $regex: searchWord,
+      },
+    })
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
+    console.log(products);
     res.status(200).json({ data: products });
   } catch (error) {
     console.log(error);
@@ -46,13 +54,25 @@ export const GetProductByIdControler = async (req, res) => {
   }
 };
 
-export const UpdateProductController = async (req,res) => {
+export const UpdateProductController = async (req, res) => {
   try {
-    const UpdatedProduct = await Product.findByIdAndUpdate(req.params.id,req.body)
-    res.status(200).json({data:UpdatedProduct})
-    
+    const UpdatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+    res.status(200).json({ data: UpdatedProduct });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
   }
-}
+};
+
+export const DeleteProductController = async (req, res) => {
+  try {
+    const params = req.params;
+    const DeletedTodo = await Product.findByIdAndDelete(params.id);
+    res.status(200).json({ data: DeletedTodo });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};

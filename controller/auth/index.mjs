@@ -39,18 +39,8 @@ export const LoginUserController = async (req, res) => {
     });
   }
   const token = jwt.sign({ user }, process.env.JWT_SECRET_KEY);
-  console.log(token);
   res.status(200).json({
     token,
   });
 };
 
-export const UserInformationControler = async (req, res) => {
-  try {
-    const token = req.headers["authorization"];
-    const validate = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    res.status(200).json(validate.user);
-  } catch (error) {
-    console.log(error);
-  }
-};
