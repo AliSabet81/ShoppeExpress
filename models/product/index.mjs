@@ -15,6 +15,8 @@ export const AddProductSchema = yup.object({
   }),
 });
 
+
+
 const ProductSchema = new Schema({
   name: {
     type: String,
